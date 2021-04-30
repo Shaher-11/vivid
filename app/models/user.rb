@@ -17,4 +17,12 @@
 #  index_users_on_username  (username) UNIQUE
 #
 class User < ApplicationRecord
+  validates_uniqueness_of :email
+  validates_uniqueness_of :username
+  validates_presence_of :first_name
+  validates_presence_of :username
+  validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP,
+    message: "must be a valid email address"
+
+    
 end

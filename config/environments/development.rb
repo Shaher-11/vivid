@@ -78,5 +78,7 @@ Rails.application.configure do
     host: 'localhost',
     port: 3000
   }
-  
+  #config.action_mailer.delivery_method = :letter_opener_web
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
 end

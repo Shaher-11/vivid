@@ -24,5 +24,33 @@ class User < ApplicationRecord
   validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP,
     message: "must be a valid email address"
 
-    
+    has_many :posts
+    has_many :bonds
+
+    has_many :followings,
+    -> { Bond.following },
+    through: :bonds,
+    source: :friend
+
+    has_many :follow_requests,
+    -> { Bond.requesting },
+    through: :bonds,
+    source: :friend
+
+    has_many :inward_bonds,
+    class_name: "Bond",
+    foreign_key: :friend_id
+
+    has_many :followers,
+    -> { Bond.following },
+    through: :inward_bonds,
+    source: :user
+
+    before_save :ensure_proper_name_case
+
+    private
+
+      def ensure_proper_name_case
+        self.first_name = first_name.capitalize
+      end
 end

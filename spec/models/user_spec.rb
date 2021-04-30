@@ -16,6 +16,7 @@
 #  index_users_on_email     (email) UNIQUE
 #  index_users_on_username  (username) UNIQUE
 #
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -106,7 +107,6 @@ RSpec.describe User, type: :model do
       expect(user.follow_requests).to include(friend3)
     end
   end
-
   describe "#followers" do
     it "can list all of the user's followers" do
       user1 = create(:user)

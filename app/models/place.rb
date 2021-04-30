@@ -26,5 +26,5 @@ class Place < ApplicationRecord
   ].freeze
 
   validates_presence_of :coordinate, :locale, :name
-  validates_inclusion_of :place_type, in: PLACE_TYPES
+  validates :place_type, inclusion: { in: PLACE_TYPES }
 end

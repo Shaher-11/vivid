@@ -1,0 +1,13 @@
+@import "member/nav";
+@import "member/timeline";
+.body-member {
+  @apply bg-gray-100 font-sans;
+}
+.body-member
+.container {
+  @apply mx-auto;
+}
+.body-member.dark {
+  @apply bg-dark-800;
+  @apply text-gray-100;
+}

@@ -48,6 +48,11 @@ class User < ApplicationRecord
 
     before_save :ensure_proper_name_case
 
+    def gravatar_url
+      hash = Digest::MD5.hexdigest(email)
+      "https://www.gravatar.com/avatar/#{hash}?d=wavatar"
+    end
+    
     private
 
       def ensure_proper_name_case

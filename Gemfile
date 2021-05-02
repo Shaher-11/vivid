@@ -23,7 +23,6 @@ gem "letter_opener", :group => :development
 gem 'evil_icons', '~> 1.10', '>= 1.10.1'
 gem 'premailer-rails', '~> 1.11', '>= 1.11.1'
 gem 'active_decorator', '~> 1.3', '>= 1.3.4'
-gem "aws-sdk-s3", require: false
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

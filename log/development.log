@@ -6658,3 +6658,298 @@ Processing by ActiveStorage::DiskController#show as JPEG
 Completed 200 OK in 2ms (ActiveRecord: 0.0ms | Allocations: 589)
 
 
+Started GET "/" for 127.0.0.1 at 2021-05-02 20:37:57 +0200
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/controllers/home_controller.rb:3:in `index'
+Redirected to http://127.0.0.1:3000/timelines
+Completed 302 Found in 34ms (ActiveRecord: 10.5ms | Allocations: 11327)
+
+
+Started GET "/timelines" for 127.0.0.1 at 2021-05-02 20:37:57 +0200
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+Processing by TimelinesController#index as HTML
+Creating scope :following. Overwriting existing method Bond.following.
+Creating scope :requesting. Overwriting existing method Bond.requesting.
+Creating scope :blocking. Overwriting existing method Bond.blocking.
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "bonds" ON "users"."id" = "bonds"."friend_id" WHERE "bonds"."user_id" = $1 AND "bonds"."state" = $2[0m  [["user_id", 14], ["state", "following"]]
+  ↳ app/controllers/timelines_controller.rb:5:in `index'
+  Rendering layout layouts/member.html.erb
+  Rendering timelines/index.html.erb within layouts/member
+  Rendered posts/_form.html.erb (Duration: 12.8ms | Allocations: 4358)
+  [1m[36mPost Load (1.5ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."thread_id" IS NULL AND "posts"."user_id" = $1 ORDER BY created_at DESC[0m  [["user_id", 14]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mStatus Load (1.5ms)[0m  [1m[34mSELECT "statuses".* FROM "statuses" WHERE "statuses"."id" IN ($1, $2, $3, $4)[0m  [[nil, 13], [nil, 12], [nil, 3], [nil, 2]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 1.8ms | Allocations: 697)
+  Rendered layouts/_inside_modal.html.erb (Duration: 2.5ms | Allocations: 1101)
+  [1m[36mPicture Load (1.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 37.3ms | Allocations: 12088)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 1.8ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 2.2ms | Allocations: 463)
+  [1m[36mPicture Load (1.4ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 12]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Attachment Load (1.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Picture"], ["name", "file"], ["record_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  Rendered timelines/_line.html.erb (Duration: 3575.4ms | Allocations: 309955)
+  Rendered timelines/_all.html.erb (Duration: 3632.5ms | Allocations: 328712)
+  Rendered timelines/index.html.erb within layouts/member (Duration: 3646.6ms | Allocations: 333760)
+  Rendered layout layouts/member.html.erb (Duration: 3646.8ms | Allocations: 333838)
+Completed 500 Internal Server Error in 3679ms (ActiveRecord: 36.8ms | Allocations: 345154)
+
+
+
+Aws::Sigv4::Errors::MissingCredentialsError - missing credentials, provide credentials with one of the following options:
+  - :access_key_id and :secret_access_key
+  - :credentials
+  - :credentials_provider:
+  app/views/timelines/_line.html.erb:12
+  app/views/timelines/_all.html.erb:4
+  app/views/timelines/_all.html.erb:2
+  app/views/timelines/index.html.erb:2
+
+Started POST "/__better_errors/e0124966a888c039/variables" for 127.0.0.1 at 2021-05-02 20:38:01 +0200
+Started GET "/" for 127.0.0.1 at 2021-05-02 20:42:29 +0200
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/controllers/home_controller.rb:3:in `index'
+Redirected to http://127.0.0.1:3000/timelines
+Completed 302 Found in 33ms (ActiveRecord: 8.9ms | Allocations: 11327)
+
+
+Started GET "/timelines" for 127.0.0.1 at 2021-05-02 20:42:29 +0200
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+Processing by TimelinesController#index as HTML
+Creating scope :following. Overwriting existing method Bond.following.
+Creating scope :requesting. Overwriting existing method Bond.requesting.
+Creating scope :blocking. Overwriting existing method Bond.blocking.
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "bonds" ON "users"."id" = "bonds"."friend_id" WHERE "bonds"."user_id" = $1 AND "bonds"."state" = $2[0m  [["user_id", 14], ["state", "following"]]
+  ↳ app/controllers/timelines_controller.rb:5:in `index'
+  Rendering layout layouts/member.html.erb
+  Rendering timelines/index.html.erb within layouts/member
+  Rendered posts/_form.html.erb (Duration: 10.6ms | Allocations: 4358)
+  [1m[36mPost Load (1.4ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."thread_id" IS NULL AND "posts"."user_id" = $1 ORDER BY created_at DESC[0m  [["user_id", 14]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mStatus Load (1.1ms)[0m  [1m[34mSELECT "statuses".* FROM "statuses" WHERE "statuses"."id" IN ($1, $2, $3, $4)[0m  [[nil, 13], [nil, 12], [nil, 3], [nil, 2]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 1.3ms | Allocations: 697)
+  Rendered layouts/_inside_modal.html.erb (Duration: 2.7ms | Allocations: 1098)
+  [1m[36mPicture Load (1.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.5ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 29.9ms | Allocations: 12087)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.5ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.7ms | Allocations: 463)
+  [1m[36mPicture Load (1.3ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 12]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Attachment Load (1.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Picture"], ["name", "file"], ["record_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  Rendered timelines/_line.html.erb (Duration: 3215.0ms | Allocations: 179737)
+  Rendered timelines/_all.html.erb (Duration: 3277.3ms | Allocations: 198494)
+  Rendered timelines/index.html.erb within layouts/member (Duration: 3292.2ms | Allocations: 203542)
+  Rendered layout layouts/member.html.erb (Duration: 3292.4ms | Allocations: 203620)
+Completed 500 Internal Server Error in 3321ms (ActiveRecord: 31.0ms | Allocations: 214937)
+
+
+
+Aws::Sigv4::Errors::MissingCredentialsError - missing credentials, provide credentials with one of the following options:
+  - :access_key_id and :secret_access_key
+  - :credentials
+  - :credentials_provider:
+  app/views/timelines/_line.html.erb:12
+  app/views/timelines/_all.html.erb:4
+  app/views/timelines/_all.html.erb:2
+  app/views/timelines/index.html.erb:2
+
+Started POST "/__better_errors/57f95422a90eab69/variables" for 127.0.0.1 at 2021-05-02 20:42:33 +0200
+Started GET "/" for 127.0.0.1 at 2021-05-02 20:45:11 +0200
+  [1m[35m (2.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/controllers/home_controller.rb:3:in `index'
+Redirected to http://127.0.0.1:3000/timelines
+Completed 302 Found in 33ms (ActiveRecord: 6.3ms | Allocations: 11327)
+
+
+Started GET "/timelines" for 127.0.0.1 at 2021-05-02 20:45:11 +0200
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+Processing by TimelinesController#index as HTML
+Creating scope :following. Overwriting existing method Bond.following.
+Creating scope :requesting. Overwriting existing method Bond.requesting.
+Creating scope :blocking. Overwriting existing method Bond.blocking.
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "bonds" ON "users"."id" = "bonds"."friend_id" WHERE "bonds"."user_id" = $1 AND "bonds"."state" = $2[0m  [["user_id", 14], ["state", "following"]]
+  ↳ app/controllers/timelines_controller.rb:5:in `index'
+  Rendering layout layouts/member.html.erb
+  Rendering timelines/index.html.erb within layouts/member
+  Rendered posts/_form.html.erb (Duration: 11.3ms | Allocations: 4358)
+  [1m[36mPost Load (2.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."thread_id" IS NULL AND "posts"."user_id" = $1 ORDER BY created_at DESC[0m  [["user_id", 14]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mStatus Load (1.3ms)[0m  [1m[34mSELECT "statuses".* FROM "statuses" WHERE "statuses"."id" IN ($1, $2, $3, $4)[0m  [[nil, 13], [nil, 12], [nil, 3], [nil, 2]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 2.9ms | Allocations: 697)
+  Rendered layouts/_inside_modal.html.erb (Duration: 4.2ms | Allocations: 1101)
+  [1m[36mPicture Load (1.2ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 37.0ms | Allocations: 12088)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.5ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.7ms | Allocations: 463)
+  [1m[36mPicture Load (1.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 12]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Attachment Load (0.9ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Picture"], ["name", "file"], ["record_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  Rendered timelines/_line.html.erb (Duration: 35.6ms | Allocations: 22836)
+  Rendered timelines/_all.html.erb (Duration: 94.0ms | Allocations: 41593)
+  Rendered timelines/index.html.erb within layouts/member (Duration: 108.3ms | Allocations: 46641)
+  Rendered layout layouts/member.html.erb (Duration: 108.6ms | Allocations: 46719)
+Completed 500 Internal Server Error in 141ms (ActiveRecord: 28.8ms | Allocations: 58035)
+
+
+
+KeyError - Missing configuration for the s3 Active Storage service. Configurations available for the test, local, and amazon services.:
+  app/views/timelines/_line.html.erb:12
+  app/views/timelines/_all.html.erb:4
+  app/views/timelines/_all.html.erb:2
+  app/views/timelines/index.html.erb:2
+
+Started POST "/__better_errors/b5bfb0cfc14e64b6/variables" for 127.0.0.1 at 2021-05-02 20:45:11 +0200
+Started GET "/timelines" for 127.0.0.1 at 2021-05-02 20:48:28 +0200
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+Processing by TimelinesController#index as HTML
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "bonds" ON "users"."id" = "bonds"."friend_id" WHERE "bonds"."user_id" = $1 AND "bonds"."state" = $2[0m  [["user_id", 14], ["state", "following"]]
+  ↳ app/controllers/timelines_controller.rb:5:in `index'
+  Rendering layout layouts/member.html.erb
+  Rendering timelines/index.html.erb within layouts/member
+  Rendered posts/_form.html.erb (Duration: 0.9ms | Allocations: 371)
+  [1m[36mPost Load (1.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."thread_id" IS NULL AND "posts"."user_id" = $1 ORDER BY created_at DESC[0m  [["user_id", 14]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mStatus Load (1.5ms)[0m  [1m[34mSELECT "statuses".* FROM "statuses" WHERE "statuses"."id" IN ($1, $2, $3, $4)[0m  [[nil, 13], [nil, 12], [nil, 3], [nil, 2]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.7ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.9ms | Allocations: 463)
+  [1m[36mPicture Load (0.8ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 11.4ms | Allocations: 4894)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 1.3ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 3.0ms | Allocations: 463)
+  [1m[36mPicture Load (1.1ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 12]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Attachment Load (1.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Picture"], ["name", "file"], ["record_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+Creating scope :unattached. Overwriting existing method ActiveStorage::Blob.unattached.
+  Rendered timelines/_line.html.erb (Duration: 22.8ms | Allocations: 10499)
+  Rendered timelines/_all.html.erb (Duration: 40.7ms | Allocations: 17518)
+  Rendered timelines/index.html.erb within layouts/member (Duration: 41.9ms | Allocations: 18045)
+  Rendered layout layouts/member.html.erb (Duration: 42.0ms | Allocations: 18114)
+Completed 500 Internal Server Error in 46ms (ActiveRecord: 8.3ms | Allocations: 19780)
+
+
+
+KeyError - Missing configuration for the s3 Active Storage service. Configurations available for the test, local, and amazon services.:
+  app/views/timelines/_line.html.erb:12
+  app/views/timelines/_all.html.erb:4
+  app/views/timelines/_all.html.erb:2
+  app/views/timelines/index.html.erb:2
+
+Started POST "/__better_errors/a0d3b09235336c66/variables" for 127.0.0.1 at 2021-05-02 20:48:28 +0200
+Started GET "/" for 127.0.0.1 at 2021-05-02 20:49:18 +0200
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (3.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/controllers/home_controller.rb:3:in `index'
+Redirected to http://127.0.0.1:3000/timelines
+Completed 302 Found in 42ms (ActiveRecord: 12.8ms | Allocations: 11327)
+
+
+Started GET "/timelines" for 127.0.0.1 at 2021-05-02 20:49:19 +0200
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+Processing by TimelinesController#index as HTML
+Creating scope :following. Overwriting existing method Bond.following.
+Creating scope :requesting. Overwriting existing method Bond.requesting.
+Creating scope :blocking. Overwriting existing method Bond.blocking.
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "bonds" ON "users"."id" = "bonds"."friend_id" WHERE "bonds"."user_id" = $1 AND "bonds"."state" = $2[0m  [["user_id", 14], ["state", "following"]]
+  ↳ app/controllers/timelines_controller.rb:5:in `index'
+  Rendering layout layouts/member.html.erb
+  Rendering timelines/index.html.erb within layouts/member
+  Rendered posts/_form.html.erb (Duration: 11.0ms | Allocations: 4358)
+  [1m[36mPost Load (1.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."thread_id" IS NULL AND "posts"."user_id" = $1 ORDER BY created_at DESC[0m  [["user_id", 14]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mStatus Load (1.2ms)[0m  [1m[34mSELECT "statuses".* FROM "statuses" WHERE "statuses"."id" IN ($1, $2, $3, $4)[0m  [[nil, 13], [nil, 12], [nil, 3], [nil, 2]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 1.2ms | Allocations: 697)
+  Rendered layouts/_inside_modal.html.erb (Duration: 2.1ms | Allocations: 1096)
+  [1m[36mPicture Load (1.2ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 47.6ms | Allocations: 12088)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.5ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.7ms | Allocations: 463)
+  [1m[36mPicture Load (1.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 12]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Attachment Load (1.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Picture"], ["name", "file"], ["record_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  Rendered timelines/_line.html.erb (Duration: 46.6ms | Allocations: 22836)
+  Rendered timelines/_all.html.erb (Duration: 114.2ms | Allocations: 41593)
+  Rendered timelines/index.html.erb within layouts/member (Duration: 126.9ms | Allocations: 46641)
+  Rendered layout layouts/member.html.erb (Duration: 127.1ms | Allocations: 46719)
+Completed 500 Internal Server Error in 160ms (ActiveRecord: 43.2ms | Allocations: 58035)
+
+
+
+KeyError - Missing configuration for the s3 Active Storage service. Configurations available for the test, local, and amazon services.:
+  app/views/timelines/_line.html.erb:12
+  app/views/timelines/_all.html.erb:4
+  app/views/timelines/_all.html.erb:2
+  app/views/timelines/index.html.erb:2
+
+Started POST "/__better_errors/ab1da2599cf3d218/variables" for 127.0.0.1 at 2021-05-02 20:49:19 +0200

@@ -8,5 +8,6 @@ Rails.application.routes.draw do
     resources :timelines,
       only: [:index, :show],
       param: :username
+  resources :posts, only: [:create, :show]
   end
 end

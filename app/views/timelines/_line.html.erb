@@ -28,6 +28,17 @@
         </p>
       </div>
     <% end %>
+    <div class="pictures">
+  <% post.pictures.each do |picture| %>
+    <a href="#">
+      <div class="picture js-modal-open"
+        data-modal-class="picture_modal_<%= picture.id %>">
+        <img src="<%= rails_blob_path(picture.file) %>">
+      </div>
+    </a>
+  <% end %>
+</div>
+
     <div class="controls">
       <%= link_to "#" do %>
         <div class="control js-modal-open"

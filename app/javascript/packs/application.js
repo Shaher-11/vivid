@@ -8,6 +8,7 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import '../css/application'
+import './modal'
 
 Rails.start()
 Turbolinks.start()

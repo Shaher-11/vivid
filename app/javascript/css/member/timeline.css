@@ -57,3 +57,32 @@
 .timeline .line .name:hover {
   @apply underline;
 }
+.body-member
+.timeline .line .controls {
+  @apply mt-2;
+  @apply flex items-center justify-between flex-wrap;
+}
+.body-member
+.timeline .line .control {
+  @apply flex items-center flex-shrink-0;
+  color: #a0aec0;
+}
+.body-member
+.timeline .line .controls .icon {
+  @apply rounded-full;
+}
+.body-member
+.timeline .line .controls .icon:hover {
+  @apply bg-teal-100;
+  @apply text-dark-800;
+  transition: all 0.25s ease;
+}
+.body-member
+.timeline .line .controls .icon:focus-within {
+  @apply bg-teal-100;
+  @apply text-dark-800;
+}
+.body-member
+.timeline .line .controls a:hover {
+  @apply text-teal-200;
+}

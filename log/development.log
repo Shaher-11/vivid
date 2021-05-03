@@ -8462,3 +8462,677 @@ Completed 200 OK in 3ms (ActiveRecord: 0.0ms | Allocations: 731)
 Completed 200 OK in 1ms (ActiveRecord: 0.0ms | Allocations: 598)
 
 
+Started GET "/" for 127.0.0.1 at 2021-05-03 10:39:27 +0200
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/_action_button.html.erb (Duration: 1.4ms | Allocations: 296)
+  Rendered home/index.html.erb within layouts/application (Duration: 6.6ms | Allocations: 1614)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layouts/_header.html.erb (Duration: 22.7ms | Allocations: 7423)
+  Rendered layouts/_alert.html.erb (Duration: 1.8ms | Allocations: 212)
+  Rendered layout layouts/application.html.erb (Duration: 36.6ms | Allocations: 9839)
+Completed 200 OK in 57ms (Views: 38.1ms | ActiveRecord: 0.0ms | Allocations: 13874)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2021-05-03 10:39:30 +0200
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]"}
+  Rendering layout layouts/session.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/session
+  Rendered devise/sessions/new.html.erb within layouts/session (Duration: 22.3ms | Allocations: 5413)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layouts/_header.html.erb (Duration: 5.4ms | Allocations: 3906)
+  Rendered layouts/_alert.html.erb (Duration: 0.1ms | Allocations: 58)
+  Rendered layout layouts/session.html.erb (Duration: 29.2ms | Allocations: 9749)
+Completed 200 OK in 52ms (Views: 30.7ms | ActiveRecord: 7.8ms | Allocations: 18880)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2021-05-03 10:39:34 +0200
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"login"=>"shahershamroukh@gmail.com", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  [1m[36mUser Load (2.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE (username = 'shahershamroukh@gmail.com' OR email = 'shahershamroukh@gmail.com') ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/models/user.rb:72:in `find_authenticatable'
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 270ms (ActiveRecord: 2.6ms | Allocations: 5081)
+
+
+Started GET "/" for 127.0.0.1 at 2021-05-03 10:39:34 +0200
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/controllers/home_controller.rb:3:in `index'
+Redirected to http://127.0.0.1:3000/timelines
+Completed 302 Found in 10ms (ActiveRecord: 2.5ms | Allocations: 1884)
+
+
+Started GET "/timelines" for 127.0.0.1 at 2021-05-03 10:39:34 +0200
+  [1m[36mUser Load (2.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+Processing by TimelinesController#index as HTML
+Creating scope :following. Overwriting existing method Bond.following.
+Creating scope :requesting. Overwriting existing method Bond.requesting.
+Creating scope :blocking. Overwriting existing method Bond.blocking.
+  [1m[35m (3.4ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "bonds" ON "users"."id" = "bonds"."friend_id" WHERE "bonds"."user_id" = $1 AND "bonds"."state" = $2[0m  [["user_id", 14], ["state", "following"]]
+  ↳ app/controllers/timelines_controller.rb:5:in `index'
+  Rendering layout layouts/member.html.erb
+  Rendering timelines/index.html.erb within layouts/member
+  Rendered posts/_form.html.erb (Duration: 12.5ms | Allocations: 4050)
+  [1m[36mPost Load (2.0ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."thread_id" IS NULL AND "posts"."user_id" = $1 ORDER BY created_at DESC[0m  [["user_id", 14]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mStatus Load (1.7ms)[0m  [1m[34mSELECT "statuses".* FROM "statuses" WHERE "statuses"."id" IN ($1, $2, $3, $4, $5)[0m  [[nil, 14], [nil, 13], [nil, 12], [nil, 3], [nil, 2]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 1.6ms | Allocations: 695)
+  Rendered layouts/_inside_modal.html.erb (Duration: 2.9ms | Allocations: 1090)
+  [1m[36mPicture Load (1.3ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 14]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.1ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 14]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (11.4ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 123.0ms | Allocations: 11526)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.8ms | Allocations: 340)
+  Rendered layouts/_inside_modal.html.erb (Duration: 1.1ms | Allocations: 465)
+  [1m[36mPicture Load (1.2ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 12.7ms | Allocations: 4586)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 2.1ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 2.8ms | Allocations: 463)
+  [1m[36mPicture Load (1.1ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 12]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Attachment Load (2.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Picture"], ["name", "file"], ["record_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Blob Load (2.9ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1[0m  [["id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  Rendered layouts/_inside_modal.html.erb (Duration: 2.0ms | Allocations: 1776)
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 12]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mActiveStorage::Attachment Load (1.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 3], ["record_type", "Picture"], ["name", "file"], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:48
+  [1m[36mActiveStorage::Blob Load (1.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:48
+  [1m[36mPost Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 12], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 12], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 77.0ms | Allocations: 31141)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.8ms | Allocations: 367)
+  Rendered layouts/_inside_modal.html.erb (Duration: 1.1ms | Allocations: 495)
+  [1m[36mPicture Load (1.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.8ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 3], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."thread_id" = $1[0m  [["thread_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:60
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 3], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  [1m[36mPost Load (1.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."thread_id" = $1[0m  [["thread_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:69
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  [1m[36mStatus Load (0.9ms)[0m  [1m[34mSELECT "statuses".* FROM "statuses" WHERE "statuses"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:2
+  Rendered posts/_form.html.erb (Duration: 0.6ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.8ms | Allocations: 463)
+  [1m[36mPicture Load (1.9ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 6]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.1ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 6]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 6], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 6], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 17.0ms | Allocations: 5926)
+  Rendered timelines/_line.html.erb (Duration: 35.2ms | Allocations: 12610)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.6ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.8ms | Allocations: 463)
+  [1m[36mPicture Load (1.2ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 2]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 2]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 2], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 2], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 13.9ms | Allocations: 4588)
+  Rendered timelines/_all.html.erb (Duration: 284.5ms | Allocations: 71334)
+  Rendered timelines/index.html.erb within layouts/member (Duration: 299.3ms | Allocations: 75893)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layouts/_header.html.erb (Duration: 4.6ms | Allocations: 3884)
+  Rendered layouts/member/_navbar.html.erb (Duration: 1.1ms | Allocations: 523)
+  Rendered layouts/_alert.html.erb (Duration: 0.1ms | Allocations: 67)
+  Rendered layout layouts/member.html.erb (Duration: 306.9ms | Allocations: 80919)
+Completed 200 OK in 341ms (Views: 240.8ms | ActiveRecord: 74.5ms | Allocations: 91575)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--e9e0dbeac21fda5d04fecd3cf376ffb7fb4eb8e7/20191116_005626.jpg" for 127.0.0.1 at 2021-05-03 10:39:34 +0200
+Processing by ActiveStorage::Blobs::RedirectController#show as JPEG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--e9e0dbeac21fda5d04fecd3cf376ffb7fb4eb8e7", "filename"=>"20191116_005626"}
+  [1m[36mActiveStorage::Blob Load (0.9ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+[36m  Disk Storage (0.6ms) [0m[34mGenerated URL for file at key: 2tgk8o81ncp236cpq4608fytbot1 (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhNblJuYXpodk9ERnVZM0F5TXpaamNIRTBOakE0Wm5sMFltOTBNUVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpVVdsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SWpJd01Ua3hNVEUyWHpBd05UWXlOaTVxY0djaU95Qm1hV3hsYm1GdFpTbzlWVlJHTFRnbkp6SXdNVGt4TVRFMlh6QXdOVFl5Tmk1cWNHY0dPd1pVT2hGamIyNTBaVzUwWDNSNWNHVkpJZzlwYldGblpTOXFjR1ZuQmpzR1ZEb1JjMlZ5ZG1salpWOXVZVzFsT2dwc2IyTmhiQT09IiwiZXhwIjoiMjAyMS0wNS0wM1QwODo0NDozNC44OTZaIiwicHVyIjoiYmxvYl9rZXkifX0=--a532269234d0f66a38ca9a55a074bdfa80dee78e/20191116_005626.jpg)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhNblJuYXpodk9ERnVZM0F5TXpaamNIRTBOakE0Wm5sMFltOTBNUVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpVVdsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SWpJd01Ua3hNVEUyWHpBd05UWXlOaTVxY0djaU95Qm1hV3hsYm1GdFpTbzlWVlJHTFRnbkp6SXdNVGt4TVRFMlh6QXdOVFl5Tmk1cWNHY0dPd1pVT2hGamIyNTBaVzUwWDNSNWNHVkpJZzlwYldGblpTOXFjR1ZuQmpzR1ZEb1JjMlZ5ZG1salpWOXVZVzFsT2dwc2IyTmhiQT09IiwiZXhwIjoiMjAyMS0wNS0wM1QwODo0NDozNC44OTZaIiwicHVyIjoiYmxvYl9rZXkifX0=--a532269234d0f66a38ca9a55a074bdfa80dee78e/20191116_005626.jpg
+Completed 302 Found in 7ms (ActiveRecord: 0.9ms | Allocations: 2391)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhNblJuYXpodk9ERnVZM0F5TXpaamNIRTBOakE0Wm5sMFltOTBNUVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpVVdsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SWpJd01Ua3hNVEUyWHpBd05UWXlOaTVxY0djaU95Qm1hV3hsYm1GdFpTbzlWVlJHTFRnbkp6SXdNVGt4TVRFMlh6QXdOVFl5Tmk1cWNHY0dPd1pVT2hGamIyNTBaVzUwWDNSNWNHVkpJZzlwYldGblpTOXFjR1ZuQmpzR1ZEb1JjMlZ5ZG1salpWOXVZVzFsT2dwc2IyTmhiQT09IiwiZXhwIjoiMjAyMS0wNS0wM1QwODo0NDozNC44OTZaIiwicHVyIjoiYmxvYl9rZXkifX0=--a532269234d0f66a38ca9a55a074bdfa80dee78e/20191116_005626.jpg" for 127.0.0.1 at 2021-05-03 10:39:35 +0200
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"20191116_005626"}
+Completed 200 OK in 3ms (ActiveRecord: 0.0ms | Allocations: 578)
+
+
+Started GET "/" for 127.0.0.1 at 2021-05-03 10:52:39 +0200
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/controllers/home_controller.rb:3:in `index'
+Redirected to http://127.0.0.1:3000/timelines
+Completed 302 Found in 38ms (ActiveRecord: 13.1ms | Allocations: 11327)
+
+
+Started GET "/timelines" for 127.0.0.1 at 2021-05-03 10:52:39 +0200
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+Processing by TimelinesController#index as HTML
+Creating scope :following. Overwriting existing method Bond.following.
+Creating scope :requesting. Overwriting existing method Bond.requesting.
+Creating scope :blocking. Overwriting existing method Bond.blocking.
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "bonds" ON "users"."id" = "bonds"."friend_id" WHERE "bonds"."user_id" = $1 AND "bonds"."state" = $2[0m  [["user_id", 14], ["state", "following"]]
+  ↳ app/controllers/timelines_controller.rb:5:in `index'
+  Rendering layout layouts/member.html.erb
+  Rendering timelines/index.html.erb within layouts/member
+  Rendered posts/_form.html.erb (Duration: 12.7ms | Allocations: 4358)
+  [1m[36mPost Load (1.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."thread_id" IS NULL AND "posts"."user_id" = $1 ORDER BY created_at DESC[0m  [["user_id", 14]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mStatus Load (1.5ms)[0m  [1m[34mSELECT "statuses".* FROM "statuses" WHERE "statuses"."id" IN ($1, $2, $3, $4, $5)[0m  [[nil, 14], [nil, 13], [nil, 12], [nil, 3], [nil, 2]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 1.0ms | Allocations: 697)
+  Rendered layouts/_inside_modal.html.erb (Duration: 1.9ms | Allocations: 1098)
+  [1m[36mPicture Load (1.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 14]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 14]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 33.6ms | Allocations: 12093)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.5ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.9ms | Allocations: 463)
+  [1m[36mPicture Load (2.6ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 14.0ms | Allocations: 4583)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.5ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.7ms | Allocations: 463)
+  [1m[36mPicture Load (1.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 12]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Attachment Load (1.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Picture"], ["name", "file"], ["record_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Blob Load (1.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1[0m  [["id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  Rendered layouts/_inside_modal.html.erb (Duration: 1.4ms | Allocations: 1779)
+  [1m[36mCACHE Picture Load (0.1ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 12]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mActiveStorage::Attachment Load (1.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 3], ["record_type", "Picture"], ["name", "file"], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:48
+  [1m[36mActiveStorage::Blob Load (2.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:48
+  [1m[36mPost Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 12], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 12], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 366.3ms | Allocations: 188170)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.6ms | Allocations: 373)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.9ms | Allocations: 501)
+  [1m[36mPicture Load (1.1ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 3], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[35m (2.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."thread_id" = $1[0m  [["thread_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:60
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 3], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  [1m[36mPost Load (0.8ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."thread_id" = $1[0m  [["thread_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:69
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  [1m[36mStatus Load (0.9ms)[0m  [1m[34mSELECT "statuses".* FROM "statuses" WHERE "statuses"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:2
+  Rendered posts/_form.html.erb (Duration: 0.6ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.8ms | Allocations: 463)
+  [1m[36mPicture Load (2.9ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 6]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 6]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 6], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 6], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 16.2ms | Allocations: 5926)
+  Rendered timelines/_line.html.erb (Duration: 33.5ms | Allocations: 12616)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.8ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 1.0ms | Allocations: 463)
+  [1m[36mPicture Load (1.1ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 2]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 2]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 2], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 2], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 13.6ms | Allocations: 4587)
+  Rendered timelines/_all.html.erb (Duration: 496.3ms | Allocations: 228941)
+  Rendered timelines/index.html.erb within layouts/member (Duration: 510.6ms | Allocations: 233988)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layouts/_header.html.erb (Duration: 14.2ms | Allocations: 7330)
+  Rendered layouts/member/_navbar.html.erb (Duration: 0.8ms | Allocations: 525)
+  Rendered layouts/_alert.html.erb (Duration: 0.3ms | Allocations: 211)
+  Rendered layout layouts/member.html.erb (Duration: 528.0ms | Allocations: 242879)
+Completed 200 OK in 560ms (Views: 470.3ms | ActiveRecord: 68.3ms | Allocations: 254203)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--e9e0dbeac21fda5d04fecd3cf376ffb7fb4eb8e7/20191116_005626.jpg" for 127.0.0.1 at 2021-05-03 10:52:39 +0200
+Processing by ActiveStorage::Blobs::RedirectController#show as JPEG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--e9e0dbeac21fda5d04fecd3cf376ffb7fb4eb8e7", "filename"=>"20191116_005626"}
+  [1m[36mActiveStorage::Blob Load (0.9ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+[36m  Disk Storage (8.2ms) [0m[34mGenerated URL for file at key: 2tgk8o81ncp236cpq4608fytbot1 (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhNblJuYXpodk9ERnVZM0F5TXpaamNIRTBOakE0Wm5sMFltOTBNUVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpVVdsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SWpJd01Ua3hNVEUyWHpBd05UWXlOaTVxY0djaU95Qm1hV3hsYm1GdFpTbzlWVlJHTFRnbkp6SXdNVGt4TVRFMlh6QXdOVFl5Tmk1cWNHY0dPd1pVT2hGamIyNTBaVzUwWDNSNWNHVkpJZzlwYldGblpTOXFjR1ZuQmpzR1ZEb1JjMlZ5ZG1salpWOXVZVzFsT2dwc2IyTmhiQT09IiwiZXhwIjoiMjAyMS0wNS0wM1QwODo1NzozOS45NzBaIiwicHVyIjoiYmxvYl9rZXkifX0=--25524f7a6ea7859dc823c0140dd8807776ff10af/20191116_005626.jpg)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhNblJuYXpodk9ERnVZM0F5TXpaamNIRTBOakE0Wm5sMFltOTBNUVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpVVdsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SWpJd01Ua3hNVEUyWHpBd05UWXlOaTVxY0djaU95Qm1hV3hsYm1GdFpTbzlWVlJHTFRnbkp6SXdNVGt4TVRFMlh6QXdOVFl5Tmk1cWNHY0dPd1pVT2hGamIyNTBaVzUwWDNSNWNHVkpJZzlwYldGblpTOXFjR1ZuQmpzR1ZEb1JjMlZ5ZG1salpWOXVZVzFsT2dwc2IyTmhiQT09IiwiZXhwIjoiMjAyMS0wNS0wM1QwODo1NzozOS45NzBaIiwicHVyIjoiYmxvYl9rZXkifX0=--25524f7a6ea7859dc823c0140dd8807776ff10af/20191116_005626.jpg
+Completed 302 Found in 16ms (ActiveRecord: 0.9ms | Allocations: 5889)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhNblJuYXpodk9ERnVZM0F5TXpaamNIRTBOakE0Wm5sMFltOTBNUVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpVVdsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SWpJd01Ua3hNVEUyWHpBd05UWXlOaTVxY0djaU95Qm1hV3hsYm1GdFpTbzlWVlJHTFRnbkp6SXdNVGt4TVRFMlh6QXdOVFl5Tmk1cWNHY0dPd1pVT2hGamIyNTBaVzUwWDNSNWNHVkpJZzlwYldGblpTOXFjR1ZuQmpzR1ZEb1JjMlZ5ZG1salpWOXVZVzFsT2dwc2IyTmhiQT09IiwiZXhwIjoiMjAyMS0wNS0wM1QwODo1NzozOS45NzBaIiwicHVyIjoiYmxvYl9rZXkifX0=--25524f7a6ea7859dc823c0140dd8807776ff10af/20191116_005626.jpg" for 127.0.0.1 at 2021-05-03 10:52:40 +0200
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"20191116_005626"}
+Completed 200 OK in 1ms (ActiveRecord: 0.0ms | Allocations: 589)
+
+
+Started POST "/posts" for 127.0.0.1 at 2021-05-03 10:53:28 +0200
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+Processing by PostsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "post"=>{"postable_type"=>"Status", "thread_id"=>"", "status_text"=>"First time using S3 ever \r\nand it was not an easy configuration ", "pictures"=>[#<ActionDispatch::Http::UploadedFile:0x00005624a2d1ba88 @tempfile=#<Tempfile:/tmp/RackMultipart20210503-463397-bwqo6c.jpg>, @original_filename="pro_img.jpg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"post[pictures][]\"; filename=\"pro_img.jpg\"\r\nContent-Type: image/jpeg\r\n">]}, "commit"=>"Say"}
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/services/post/creator.rb:51:in `create_a_status_update'
+  [1m[36mStatus Create (1.9ms)[0m  [1m[32mINSERT INTO "statuses" ("text", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["text", "First time using S3 ever \r\nand it was not an easy configuration "], ["created_at", "2021-05-03 08:53:28.784755"], ["updated_at", "2021-05-03 08:53:28.784755"]]
+  ↳ app/services/post/creator.rb:51:in `create_a_status_update'
+  [1m[36mPost Create (1.7ms)[0m  [1m[32mINSERT INTO "posts" ("user_id", "postable_type", "postable_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", 14], ["postable_type", "Status"], ["postable_id", 16], ["created_at", "2021-05-03 08:53:28.793414"], ["updated_at", "2021-05-03 08:53:28.793414"]]
+  ↳ app/services/post/creator.rb:51:in `create_a_status_update'
+  [1m[36mTRANSACTION (3.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/services/post/creator.rb:51:in `create_a_status_update'
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/services/post/picture_attacher.rb:17:in `handle_from_file_upload'
+  [1m[36mPicture Create (1.4ms)[0m  [1m[32mINSERT INTO "pictures" ("post_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["post_id", 16], ["created_at", "2021-05-03 08:53:28.806208"], ["updated_at", "2021-05-03 08:53:28.806208"]]
+  ↳ app/services/post/picture_attacher.rb:17:in `handle_from_file_upload'
+  [1m[36mActiveStorage::Blob Load (2.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 4], ["record_type", "Picture"], ["name", "file"], ["LIMIT", 1]]
+  ↳ app/services/post/picture_attacher.rb:17:in `handle_from_file_upload'
+  [1m[36mActiveStorage::Attachment Load (1.9ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 4], ["record_type", "Picture"], ["name", "file"], ["LIMIT", 1]]
+  ↳ app/services/post/picture_attacher.rb:17:in `handle_from_file_upload'
+  [1m[36mActiveStorage::Blob Create (1.4ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["key", "ea814p97u99wobywu6sbmn214dv0"], ["filename", "pro_img.jpg"], ["content_type", "image/jpeg"], ["metadata", "{\"identified\":true}"], ["service_name", "s3"], ["byte_size", 230958], ["checksum", "Dxhr4ajKihPQx74vS6sVDQ=="], ["created_at", "2021-05-03 08:53:28.823546"]]
+  ↳ app/services/post/picture_attacher.rb:17:in `handle_from_file_upload'
+  [1m[36mActiveStorage::Attachment Create (1.5ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "file"], ["record_type", "Picture"], ["record_id", 4], ["blob_id", 4], ["created_at", "2021-05-03 08:53:28.826789"]]
+  ↳ app/services/post/picture_attacher.rb:17:in `handle_from_file_upload'
+  [1m[36mPicture Update (2.6ms)[0m  [1m[33mUPDATE "pictures" SET "updated_at" = $1 WHERE "pictures"."id" = $2[0m  [["updated_at", "2021-05-03 08:53:28.829998"], ["id", 4]]
+  ↳ app/services/post/picture_attacher.rb:17:in `handle_from_file_upload'
+  [1m[36mTRANSACTION (1.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/services/post/picture_attacher.rb:17:in `handle_from_file_upload'
+[36m  S3 Storage (2917.9ms) [0m[32mUploaded file to key: ea814p97u99wobywu6sbmn214dv0 (checksum: Dxhr4ajKihPQx74vS6sVDQ==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 60d3848f-f5c5-4925-b071-55f9d57e419d) to Async(default) with arguments: #<GlobalID:0x00005624a413b5b8 @uri=#<URI::GID gid://vivid/ActiveStorage::Blob/4>>
+Redirected to http://127.0.0.1:3000/timelines
+Completed 302 Found in 2988ms (ActiveRecord: 22.3ms | Allocations: 20603)
+
+
+Started GET "/timelines" for 127.0.0.1 at 2021-05-03 10:53:31 +0200
+  [1m[36mActiveStorage::Blob Load (1.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [60d3848f-f5c5-4925-b071-55f9d57e419d] Performing ActiveStorage::AnalyzeJob (Job ID: 60d3848f-f5c5-4925-b071-55f9d57e419d) from Async(default) enqueued at 2021-05-03T08:53:31Z with arguments: #<GlobalID:0x00005624a25ba4b0 @uri=#<URI::GID gid://vivid/ActiveStorage::Blob/4>>
+Processing by TimelinesController#index as HTML
+  [1m[35m (3.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "bonds" ON "users"."id" = "bonds"."friend_id" WHERE "bonds"."user_id" = $1 AND "bonds"."state" = $2[0m  [["user_id", 14], ["state", "following"]]
+  ↳ app/controllers/timelines_controller.rb:5:in `index'
+  Rendering layout layouts/member.html.erb
+  Rendering timelines/index.html.erb within layouts/member
+  Rendered posts/_form.html.erb (Duration: 1.8ms | Allocations: 367)
+  [1m[36mPost Load (1.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."thread_id" IS NULL AND "posts"."user_id" = $1 ORDER BY created_at DESC[0m  [["user_id", 14]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mStatus Load (1.2ms)[0m  [1m[34mSELECT "statuses".* FROM "statuses" WHERE "statuses"."id" IN ($1, $2, $3, $4, $5, $6)[0m  [[nil, 16], [nil, 14], [nil, 13], [nil, 12], [nil, 3], [nil, 2]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.9ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 1.2ms | Allocations: 463)
+  [1m[36mPicture Load (1.3ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 16]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Attachment Load (1.5ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Picture"], ["name", "file"], ["record_id", 4]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Blob Load (1.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1[0m  [["id", 4]]
+  ↳ app/views/timelines/_line.html.erb:12
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.6ms | Allocations: 253)
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 16]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mActiveStorage::Attachment Load (1.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 4], ["record_type", "Picture"], ["name", "file"], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:48
+  [1m[36mActiveStorage::Blob Load (0.8ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:48
+  [1m[36mPost Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 16], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 16], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 26.9ms | Allocations: 9995)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 1.5ms | Allocations: 366)
+  Rendered layouts/_inside_modal.html.erb (Duration: 2.1ms | Allocations: 494)
+  [1m[36mPicture Load (1.2ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 14]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 14]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 10.5ms | Allocations: 4621)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.6ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.9ms | Allocations: 463)
+  [1m[36mPicture Load (1.7ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 12.9ms | Allocations: 4581)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.7ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.9ms | Allocations: 463)
+  [1m[36mPicture Load (0.9ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 12]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Attachment Load (1.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Picture"], ["name", "file"], ["record_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Blob Load (1.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1[0m  [["id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  Rendered layouts/_inside_modal.html.erb (Duration: 1.2ms | Allocations: 243)
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 12]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mActiveStorage::Attachment Load (1.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 3], ["record_type", "Picture"], ["name", "file"], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:48
+  [1m[36mActiveStorage::Blob Load (1.0ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:48
+  [1m[36mPost Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 12], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 12], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 26.6ms | Allocations: 9652)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.8ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 1.2ms | Allocations: 463)
+  [1m[36mPicture Load (0.8ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 3], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."thread_id" = $1[0m  [["thread_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:60
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 3], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  [1m[36mPost Load (0.9ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."thread_id" = $1[0m  [["thread_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:69
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  [1m[36mStatus Load (1.8ms)[0m  [1m[34mSELECT "statuses".* FROM "statuses" WHERE "statuses"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:2
+  Rendered posts/_form.html.erb (Duration: 0.6ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.9ms | Allocations: 463)
+  [1m[36mPicture Load (0.9ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 6]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 6]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 6], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 6], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 16.8ms | Allocations: 5673)
+  Rendered timelines/_line.html.erb (Duration: 32.0ms | Allocations: 12057)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.6ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.9ms | Allocations: 463)
+  [1m[36mPicture Load (1.1ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 2]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 2]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 2], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 2], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 14.3ms | Allocations: 4587)
+  Rendered timelines/_all.html.erb (Duration: 132.9ms | Allocations: 47939)
+  Rendered timelines/index.html.erb within layouts/member (Duration: 136.8ms | Allocations: 48461)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layouts/_header.html.erb (Duration: 6.0ms | Allocations: 3987)
+  Rendered layouts/member/_navbar.html.erb (Duration: 0.5ms | Allocations: 211)
+  Rendered layouts/_alert.html.erb (Duration: 0.1ms | Allocations: 56)
+  Rendered layout layouts/member.html.erb (Duration: 144.3ms | Allocations: 52973)
+Completed 200 OK in 151ms (Views: 113.1ms | ActiveRecord: 34.9ms | Allocations: 56221)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--a3086a704e3d6ee3264ea398f6bffbfc6d60f442/pro_img.jpg" for 127.0.0.1 at 2021-05-03 10:53:31 +0200
+Processing by ActiveStorage::Blobs::RedirectController#show as JPEG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--a3086a704e3d6ee3264ea398f6bffbfc6d60f442", "filename"=>"pro_img"}
+  [1m[36mActiveStorage::Blob Load (1.7ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+[36m  S3 Storage (2.2ms) [0m[34mGenerated URL for file at key: ea814p97u99wobywu6sbmn214dv0 (https://vivid-stg-uploaded-media.s3.amazonaws.com/ea814p97u99wobywu6sbmn214dv0?response-content-disposition=inline%3B%20filename%3D%22pro_img.jpg%22%3B%20filename%2A%3DUTF-8%27%27pro_img.jpg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASQ7FCQWY2MUTUHEB%2F20210503%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210503T085332Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=1bb215c13f9d729dbceecfedb3a8b1f7ab313d535fe9371f66bd6f06f55cd36a)[0m
+Redirected to https://vivid-stg-uploaded-media.s3.amazonaws.com/ea814p97u99wobywu6sbmn214dv0?response-content-disposition=inline%3B%20filename%3D%22pro_img.jpg%22%3B%20filename%2A%3DUTF-8%27%27pro_img.jpg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASQ7FCQWY2MUTUHEB%2F20210503%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210503T085332Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=1bb215c13f9d729dbceecfedb3a8b1f7ab313d535fe9371f66bd6f06f55cd36a
+Completed 302 Found in 14ms (ActiveRecord: 1.7ms | Allocations: 2406)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhNblJuYXpodk9ERnVZM0F5TXpaamNIRTBOakE0Wm5sMFltOTBNUVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpVVdsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SWpJd01Ua3hNVEUyWHpBd05UWXlOaTVxY0djaU95Qm1hV3hsYm1GdFpTbzlWVlJHTFRnbkp6SXdNVGt4TVRFMlh6QXdOVFl5Tmk1cWNHY0dPd1pVT2hGamIyNTBaVzUwWDNSNWNHVkpJZzlwYldGblpTOXFjR1ZuQmpzR1ZEb1JjMlZ5ZG1salpWOXVZVzFsT2dwc2IyTmhiQT09IiwiZXhwIjoiMjAyMS0wNS0wM1QwODo1NzozOS45NzBaIiwicHVyIjoiYmxvYl9rZXkifX0=--25524f7a6ea7859dc823c0140dd8807776ff10af/20191116_005626.jpg" for 127.0.0.1 at 2021-05-03 10:53:32 +0200
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"20191116_005626"}
+Completed 200 OK in 1ms (ActiveRecord: 0.0ms | Allocations: 356)
+
+
+[ActiveJob] [ActiveStorage::AnalyzeJob] [60d3848f-f5c5-4925-b071-55f9d57e419d] [36m  S3 Storage (1160.7ms) [0m[34mDownloaded file from key: ea814p97u99wobywu6sbmn214dv0[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [60d3848f-f5c5-4925-b071-55f9d57e419d] Skipping image analysis because the mini_magick gem isn't installed
+[ActiveJob] [ActiveStorage::AnalyzeJob] [60d3848f-f5c5-4925-b071-55f9d57e419d]   [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [60d3848f-f5c5-4925-b071-55f9d57e419d]   [1m[36mActiveStorage::Blob Update (0.4ms)[0m  [1m[33mUPDATE "active_storage_blobs" SET "metadata" = $1 WHERE "active_storage_blobs"."id" = $2[0m  [["metadata", "{\"identified\":true,\"analyzed\":true}"], ["id", 4]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [60d3848f-f5c5-4925-b071-55f9d57e419d]   [1m[36mTRANSACTION (7.2ms)[0m  [1m[35mCOMMIT[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [60d3848f-f5c5-4925-b071-55f9d57e419d] Performed ActiveStorage::AnalyzeJob (Job ID: 60d3848f-f5c5-4925-b071-55f9d57e419d) from Async(default) in 1180.88ms
+Started GET "/timelines" for 127.0.0.1 at 2021-05-03 10:55:43 +0200
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+Processing by TimelinesController#index as HTML
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "bonds" ON "users"."id" = "bonds"."friend_id" WHERE "bonds"."user_id" = $1 AND "bonds"."state" = $2[0m  [["user_id", 14], ["state", "following"]]
+  ↳ app/controllers/timelines_controller.rb:5:in `index'
+  Rendering layout layouts/member.html.erb
+  Rendering timelines/index.html.erb within layouts/member
+  Rendered posts/_form.html.erb (Duration: 1.1ms | Allocations: 365)
+  [1m[36mPost Load (1.5ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."thread_id" IS NULL AND "posts"."user_id" = $1 ORDER BY created_at DESC[0m  [["user_id", 14]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mStatus Load (1.1ms)[0m  [1m[34mSELECT "statuses".* FROM "statuses" WHERE "statuses"."id" IN ($1, $2, $3, $4, $5, $6)[0m  [[nil, 16], [nil, 14], [nil, 13], [nil, 12], [nil, 3], [nil, 2]]
+  ↳ app/views/timelines/_all.html.erb:2
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.6ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.9ms | Allocations: 463)
+  [1m[36mPicture Load (0.9ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 16]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Attachment Load (1.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Picture"], ["name", "file"], ["record_id", 4]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Blob Load (1.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1[0m  [["id", 4]]
+  ↳ app/views/timelines/_line.html.erb:12
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.5ms | Allocations: 253)
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 16]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mActiveStorage::Attachment Load (0.9ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 4], ["record_type", "Picture"], ["name", "file"], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:48
+  [1m[36mActiveStorage::Blob Load (1.0ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:48
+  [1m[36mPost Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 16], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 16], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 29.7ms | Allocations: 10031)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.6ms | Allocations: 366)
+  Rendered layouts/_inside_modal.html.erb (Duration: 0.8ms | Allocations: 494)
+  [1m[36mPicture Load (1.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 14]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 14]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 9.8ms | Allocations: 4621)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.8ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 1.3ms | Allocations: 463)
+  [1m[36mPicture Load (1.8ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 13]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.9ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 13], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 14.9ms | Allocations: 4581)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 4.2ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 5.4ms | Allocations: 463)
+  [1m[36mPicture Load (1.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 12]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Attachment Load (1.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = $1 AND "active_storage_attachments"."name" = $2 AND "active_storage_attachments"."record_id" = $3[0m  [["record_type", "Picture"], ["name", "file"], ["record_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mActiveStorage::Blob Load (2.0ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1[0m  [["id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  Rendered layouts/_inside_modal.html.erb (Duration: 2.0ms | Allocations: 243)
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 12]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mActiveStorage::Attachment Load (1.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 3], ["record_type", "Picture"], ["name", "file"], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:48
+  [1m[36mActiveStorage::Blob Load (1.0ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:48
+  [1m[36mPost Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 12], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 12], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 47.5ms | Allocations: 9652)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 2.8ms | Allocations: 340)
+  Rendered layouts/_inside_modal.html.erb (Duration: 3.7ms | Allocations: 465)
+  [1m[36mPicture Load (2.4ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 3], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts" WHERE "posts"."thread_id" = $1[0m  [["thread_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:60
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 3], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  [1m[36mPost Load (0.9ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."thread_id" = $1[0m  [["thread_id", 3]]
+  ↳ app/views/timelines/_line.html.erb:69
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  [1m[36mStatus Load (2.3ms)[0m  [1m[34mSELECT "statuses".* FROM "statuses" WHERE "statuses"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:2
+  Rendered posts/_form.html.erb (Duration: 0.8ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 1.0ms | Allocations: 463)
+  [1m[36mPicture Load (1.1ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 6]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 6]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 6], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 6], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 18.6ms | Allocations: 5676)
+  Rendered timelines/_line.html.erb (Duration: 39.0ms | Allocations: 12067)
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:1
+  Rendered posts/_form.html.erb (Duration: 0.7ms | Allocations: 338)
+  Rendered layouts/_inside_modal.html.erb (Duration: 1.0ms | Allocations: 463)
+  [1m[36mPicture Load (1.1ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 2]]
+  ↳ app/views/timelines/_line.html.erb:12
+  [1m[36mCACHE Picture Load (0.0ms)[0m  [1m[34mSELECT "pictures".* FROM "pictures" WHERE "pictures"."post_id" = $1[0m  [["post_id", 2]]
+  ↳ app/views/timelines/_line.html.erb:44
+  [1m[36mPost Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 2], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:59
+  [1m[36mCACHE Post Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "posts" WHERE "posts"."thread_id" = $1 LIMIT $2[0m  [["thread_id", 2], ["LIMIT", 1]]
+  ↳ app/views/timelines/_line.html.erb:67
+  Rendered timelines/_line.html.erb (Duration: 12.3ms | Allocations: 4588)
+  Rendered timelines/_all.html.erb (Duration: 161.5ms | Allocations: 47986)
+  Rendered timelines/index.html.erb within layouts/member (Duration: 163.1ms | Allocations: 48506)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layouts/_header.html.erb (Duration: 7.5ms | Allocations: 3986)
+  Rendered layouts/member/_navbar.html.erb (Duration: 0.5ms | Allocations: 211)
+  Rendered layouts/_alert.html.erb (Duration: 0.1ms | Allocations: 56)
+  Rendered layout layouts/member.html.erb (Duration: 172.1ms | Allocations: 53016)
+Completed 200 OK in 177ms (Views: 137.7ms | ActiveRecord: 36.2ms | Allocations: 54691)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--a3086a704e3d6ee3264ea398f6bffbfc6d60f442/pro_img.jpg" for 127.0.0.1 at 2021-05-03 10:55:43 +0200
+Processing by ActiveStorage::Blobs::RedirectController#show as JPEG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--a3086a704e3d6ee3264ea398f6bffbfc6d60f442", "filename"=>"pro_img"}
+  [1m[36mActiveStorage::Blob Load (2.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+[36m  S3 Storage (2.2ms) [0m[34mGenerated URL for file at key: ea814p97u99wobywu6sbmn214dv0 (https://vivid-stg-uploaded-media.s3.amazonaws.com/ea814p97u99wobywu6sbmn214dv0?response-content-disposition=inline%3B%20filename%3D%22pro_img.jpg%22%3B%20filename%2A%3DUTF-8%27%27pro_img.jpg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASQ7FCQWY2MUTUHEB%2F20210503%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210503T085543Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=a8f3e8e32e645e093e66733f6fca0af986ff1f2260787495c4c9b0e096b262f9)[0m
+Redirected to https://vivid-stg-uploaded-media.s3.amazonaws.com/ea814p97u99wobywu6sbmn214dv0?response-content-disposition=inline%3B%20filename%3D%22pro_img.jpg%22%3B%20filename%2A%3DUTF-8%27%27pro_img.jpg&response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASQ7FCQWY2MUTUHEB%2F20210503%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210503T085543Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=a8f3e8e32e645e093e66733f6fca0af986ff1f2260787495c4c9b0e096b262f9
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--e9e0dbeac21fda5d04fecd3cf376ffb7fb4eb8e7/20191116_005626.jpg" for 127.0.0.1 at 2021-05-03 10:55:43 +0200
+Completed 302 Found in 15ms (ActiveRecord: 2.4ms | Allocations: 3038)
+
+
+Processing by ActiveStorage::Blobs::RedirectController#show as JPEG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--e9e0dbeac21fda5d04fecd3cf376ffb7fb4eb8e7", "filename"=>"20191116_005626"}
+  [1m[36mActiveStorage::Blob Load (1.6ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+[36m  Disk Storage (0.4ms) [0m[34mGenerated URL for file at key: 2tgk8o81ncp236cpq4608fytbot1 (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhNblJuYXpodk9ERnVZM0F5TXpaamNIRTBOakE0Wm5sMFltOTBNUVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpVVdsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SWpJd01Ua3hNVEUyWHpBd05UWXlOaTVxY0djaU95Qm1hV3hsYm1GdFpTbzlWVlJHTFRnbkp6SXdNVGt4TVRFMlh6QXdOVFl5Tmk1cWNHY0dPd1pVT2hGamIyNTBaVzUwWDNSNWNHVkpJZzlwYldGblpTOXFjR1ZuQmpzR1ZEb1JjMlZ5ZG1salpWOXVZVzFsT2dwc2IyTmhiQT09IiwiZXhwIjoiMjAyMS0wNS0wM1QwOTowMDo0My44ODBaIiwicHVyIjoiYmxvYl9rZXkifX0=--d82791908b8cdb2f0d836e99b88fbed8d3f8b9cb/20191116_005626.jpg)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhNblJuYXpodk9ERnVZM0F5TXpaamNIRTBOakE0Wm5sMFltOTBNUVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpVVdsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SWpJd01Ua3hNVEUyWHpBd05UWXlOaTVxY0djaU95Qm1hV3hsYm1GdFpTbzlWVlJHTFRnbkp6SXdNVGt4TVRFMlh6QXdOVFl5Tmk1cWNHY0dPd1pVT2hGamIyNTBaVzUwWDNSNWNHVkpJZzlwYldGblpTOXFjR1ZuQmpzR1ZEb1JjMlZ5ZG1salpWOXVZVzFsT2dwc2IyTmhiQT09IiwiZXhwIjoiMjAyMS0wNS0wM1QwOTowMDo0My44ODBaIiwicHVyIjoiYmxvYl9rZXkifX0=--d82791908b8cdb2f0d836e99b88fbed8d3f8b9cb/20191116_005626.jpg
+Completed 302 Found in 9ms (ActiveRecord: 1.6ms | Allocations: 1744)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhNblJuYXpodk9ERnVZM0F5TXpaamNIRTBOakE0Wm5sMFltOTBNUVk2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpVVdsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SWpJd01Ua3hNVEUyWHpBd05UWXlOaTVxY0djaU95Qm1hV3hsYm1GdFpTbzlWVlJHTFRnbkp6SXdNVGt4TVRFMlh6QXdOVFl5Tmk1cWNHY0dPd1pVT2hGamIyNTBaVzUwWDNSNWNHVkpJZzlwYldGblpTOXFjR1ZuQmpzR1ZEb1JjMlZ5ZG1salpWOXVZVzFsT2dwc2IyTmhiQT09IiwiZXhwIjoiMjAyMS0wNS0wM1QwOTowMDo0My44ODBaIiwicHVyIjoiYmxvYl9rZXkifX0=--d82791908b8cdb2f0d836e99b88fbed8d3f8b9cb/20191116_005626.jpg" for 127.0.0.1 at 2021-05-03 10:55:43 +0200
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"20191116_005626"}
+Completed 200 OK in 1ms (ActiveRecord: 0.0ms | Allocations: 350)
+
+

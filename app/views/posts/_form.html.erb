@@ -4,9 +4,15 @@
   <%= form_with model: Post.new, id: form_id, multipart: true do |f| %>
     <%= f.hidden_field :postable_type, value: "Status" %>
      <%= f.hidden_field :thread_id, value: thread&.id %>
-    <%= f.text_area :status_text,
-      required: true,
-      placeholder: "What's happening?"  %>
+
+    <div class="poster js-status-poster">
+  <%= f.text_area :status_text,
+    required: true,
+    placeholder: "What's happening?"  %>
+</div>
+<% unless thread %>
+  <div class="poster js-sight-poster hidden"></div>
+<% end %>
       <div class="pictures">
   <div class="picture-cont template">
     <img class="picture">

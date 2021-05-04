@@ -25,10 +25,20 @@
       "js.map": [
         "/packs/js/modal-f61b6b80a689cc7438dc.js.map"
       ]
+    },
+    "vue_ application": {
+      "js": [
+        "/packs/js/vue_%20application-aec39ca5c0504f78bb91.js"
+      ],
+      "js.map": [
+        "/packs/js/vue_%20application-aec39ca5c0504f78bb91.js.map"
+      ]
     }
   },
   "hello_vue.js": "/packs/js/hello_vue-49c2d7c23776d8b4b744.js",
   "hello_vue.js.map": "/packs/js/hello_vue-49c2d7c23776d8b4b744.js.map",
   "modal.js": "/packs/js/modal-f61b6b80a689cc7438dc.js",
-  "modal.js.map": "/packs/js/modal-f61b6b80a689cc7438dc.js.map"
+  "modal.js.map": "/packs/js/modal-f61b6b80a689cc7438dc.js.map",
+  "vue_ application.js": "/packs/js/vue_%20application-aec39ca5c0504f78bb91.js",
+  "vue_ application.js.map": "/packs/js/vue_%20application-aec39ca5c0504f78bb91.js.map"
 }
